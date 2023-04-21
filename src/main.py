@@ -14,7 +14,7 @@ def get_image_from_camera(rtsp_url):
 
 def main():
     debug_mode = True
-    eagle_eye_client = eagleEyeClient.EagleEyeApiClient("apiKey.json", debug_mode)
+    eagle_eye_client = eagleEyeClient.EagleEyeApiClient("apiKeyExample.json", debug_mode)
     current_user = eagle_eye_client.login()
 
     device_list = eagle_eye_client.get_devices(current_user)
