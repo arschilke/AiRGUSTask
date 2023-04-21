@@ -1,10 +1,13 @@
 import json
 import requests
+
+
 def load_creds_from_config(filename):
     f = open(filename, 'r')
     return json.loads(f.read())
-class EagleEyeApiClient:
 
+
+class EagleEyeApiClient:
     HTTP_STATUS_CODE = {
         200: 'OK',
         202: 'ACCEPTED',
@@ -18,6 +21,7 @@ class EagleEyeApiClient:
 
     LOGIN_URL = "https://login.eagleeyenetworks.com/g/aaa/authenticate"
     AUTH_URL = "https://login.eagleeyenetworks.com/g/aaa/authorize"
+
     def __init__(self, filename, debug_mode):
         self.debug_mode = debug_mode
         self.session = requests.session()
@@ -30,14 +34,15 @@ class EagleEyeApiClient:
     def login(self):
         payload = json.dumps({'username': self.username, 'password': self.password})
         login_response = self.session.request("POST",
-                                self.LOGIN_URL,
-                                data=payload,
-                                headers=self.headers)
+                                              self.LOGIN_URL,
+                                              data=payload,
+                                              headers=self.headers)
 
         print("Login Step 1: %s" % self.HTTP_STATUS_CODE[login_response.status_code])
 
         token = login_response.json()['token']
-        auth_response = self.session.request("POST", self.AUTH_URL, data=json.dumps({'token': token}), headers=self.headers)
+        auth_response = self.session.request("POST", self.AUTH_URL, data=json.dumps({'token': token}),
+                                             headers=self.headers)
 
         print("Login Step 2: %s" % self.HTTP_STATUS_CODE[auth_response.status_code])
 
@@ -63,5 +68,5 @@ class EagleEyeApiClient:
 
         response = self.session.request("GET", url, data="", headers=self.headers)
 
-        print("Step 5: %s" % self.HTTP_STATUS_CODE[response.status_code])
+        print("Get Stream Urls: %s" % self.HTTP_STATUS_CODE[response.status_code])
         return response.json()

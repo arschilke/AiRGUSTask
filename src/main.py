@@ -1,6 +1,6 @@
+import argparse
 import cv2
 import eagleEyeClient
-import argparse
 
 def get_image_from_camera(rtsp_url):
     cap = cv2.VideoCapture(rtsp_url)
@@ -12,6 +12,7 @@ def get_image_from_camera(rtsp_url):
             break
     cap.release()
     cv2.destroyAllWindows()
+
 
 def main(debug_mode):
     eagle_eye_client = eagleEyeClient.EagleEyeApiClient("apiKey.json", debug_mode)
@@ -29,8 +30,6 @@ def main(debug_mode):
     stream_urls = eagle_eye_client.get_stream_urls(current_user, camera_id)
     rtsp_url = stream_urls["data"]["rtsp"]
     get_image_from_camera(rtsp_url)
-
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--debug', default=False, action='store_true')
