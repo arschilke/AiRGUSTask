@@ -1,15 +1,8 @@
 # AiRGUSTask
 
-Daniel,
 
-Thank you for meeting with me. It was a pleasure to learn more about AI-RGUS and position.
-
-I look forward to hearing from you about the next steps in the hiring process,
-and please don’t hesitate to contact me if I can provide additional information.
-
-Sincerely,
-
-Alyssa Schilke
+## Usage
+`python main.py [--debug]`
 
 
 ### Task
