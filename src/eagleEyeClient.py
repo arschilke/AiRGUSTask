@@ -24,13 +24,14 @@ class EagleEyeApiClient:
         data = load_creds_from_config(filename)
         self.username = data["username"]
         self.password = data["password"]
-        self.api_key = data["api_key"]
+        self.api_key = data["api"]
         self.headers = {'content-type': 'application/json', 'authorization': self.api_key}
 
     def login(self):
+        payload = json.dumps({'username': self.username, 'password': self.password})
         login_response = self.session.request("POST",
                                 self.LOGIN_URL,
-                                data=json.dumps({'username': self.username, 'password': self.password}),
+                                data=payload,
                                 headers=self.headers)
 
         print("Login Step 1: %s" % self.HTTP_STATUS_CODE[login_response.status_code])
